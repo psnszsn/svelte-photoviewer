@@ -1304,13 +1304,11 @@ const prevPhoto = derived([photos, currentIndex], ([a, b]) => a[prev(b, a.length
 const currentPhoto = derived([photos, currentIndex], ([a, b]) => a[b]);
 const nextPhoto = derived([photos, currentIndex], ([a, b]) => a[next(b, a.length - 1)]);
 
-photos.subscribe(value => console.log(value));
-
 currentIndex = {
     ...currentIndex,
     next: () => currentIndex.update(x => next(x, get_store_value(photosLength) - 1)),
     prev: () => currentIndex.update(x => prev(x, get_store_value(photosLength) - 1)),
-    setKey: (key) => {console.log("key", key); currentIndex.set(get_store_value(photos).findIndex(x => x.key === key));}
+    setKey: (key) => currentIndex.set(get_store_value(photos).findIndex(x => x.key === key))
 
 };
 
@@ -2016,8 +2014,8 @@ class Thumbnail extends SvelteComponent {
 
 function add_css$2() {
 	var style = element("style");
-	style.id = "svelte-hwbf39-style";
-	style.textContent = "img.svelte-hwbf39{max-height:100%;min-width:100%;display:block;object-fit:cover}ul.svelte-hwbf39{display:flex;flex-wrap:wrap;list-style:none}li.svelte-hwbf39{flex-grow:1;position:relative;height:200px;display:flex;padding:2px}li.svelte-hwbf39:last-child{flex-grow:10}";
+	style.id = "svelte-ny28sf-style";
+	style.textContent = "img.svelte-ny28sf{max-height:100%;min-width:100%;display:block;object-fit:cover}ul.svelte-ny28sf{display:flex;flex-wrap:wrap;list-style:none;padding:0}li.svelte-ny28sf{flex-grow:1;position:relative;height:200px;display:flex;padding:2px}li.svelte-ny28sf:last-child{flex-grow:10}";
 	append(document.head, style);
 }
 
@@ -2038,7 +2036,7 @@ function create_default_slot(ctx) {
 			img = element("img");
 			if (img.src !== (img_src_value = /*p*/ ctx[2].thumbnail)) attr(img, "src", img_src_value);
 			attr(img, "alt", img_alt_value = /*p*/ ctx[2].key);
-			attr(img, "class", "svelte-hwbf39");
+			attr(img, "class", "svelte-ny28sf");
 		},
 		m(target, anchor) {
 			insert(target, img, anchor);
@@ -2067,7 +2065,7 @@ function create_each_block(ctx) {
 		c() {
 			li = element("li");
 			create_component(thumbnail.$$.fragment);
-			attr(li, "class", "svelte-hwbf39");
+			attr(li, "class", "svelte-ny28sf");
 		},
 		m(target, anchor) {
 			insert(target, li, anchor);
@@ -2104,8 +2102,6 @@ function create_fragment$2(ctx) {
 	let ul;
 	let t1;
 	let li;
-	let t2;
-	let p;
 	let current;
 	const fsphotoviewer = new FSPhotoViewer({ props: { photos: /*photos*/ ctx[0] } });
 	let each_value = /*photos*/ ctx[0];
@@ -2131,11 +2127,8 @@ function create_fragment$2(ctx) {
 
 			t1 = space();
 			li = element("li");
-			t2 = space();
-			p = element("p");
-			p.textContent = "test";
-			attr(li, "class", "svelte-hwbf39");
-			attr(ul, "class", "svelte-hwbf39");
+			attr(li, "class", "svelte-ny28sf");
+			attr(ul, "class", "svelte-ny28sf");
 		},
 		m(target, anchor) {
 			mount_component(fsphotoviewer, target, anchor);
@@ -2148,8 +2141,6 @@ function create_fragment$2(ctx) {
 
 			append(ul, t1);
 			append(ul, li);
-			insert(target, t2, anchor);
-			insert(target, p, anchor);
 			current = true;
 		},
 		p(ctx, [dirty]) {
@@ -2205,8 +2196,6 @@ function create_fragment$2(ctx) {
 			if (detaching) detach(t0);
 			if (detaching) detach(ul);
 			destroy_each(each_blocks, detaching);
-			if (detaching) detach(t2);
-			if (detaching) detach(p);
 		}
 	};
 }
@@ -2234,7 +2223,7 @@ function instance$2($$self) {
 class Demo extends SvelteComponent {
 	constructor(options) {
 		super();
-		if (!document.getElementById("svelte-hwbf39-style")) add_css$2();
+		if (!document.getElementById("svelte-ny28sf-style")) add_css$2();
 		init(this, options, instance$2, create_fragment$2, safe_not_equal, {});
 	}
 }
