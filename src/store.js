@@ -12,13 +12,11 @@ const prevPhoto = derived([photos, currentIndex], ([a, b]) => a[prev(b, a.length
 const currentPhoto = derived([photos, currentIndex], ([a, b]) => a[b])
 const nextPhoto = derived([photos, currentIndex], ([a, b]) => a[next(b, a.length - 1)])
 
-photos.subscribe(value => console.log(value))
-
 currentIndex = {
     ...currentIndex,
     next: () => currentIndex.update(x => next(x, get(photosLength) - 1)),
     prev: () => currentIndex.update(x => prev(x, get(photosLength) - 1)),
-    setKey: (key) => {console.log("key", key); currentIndex.set(get(photos).findIndex(x => x.key === key))}
+    setKey: (key) => currentIndex.set(get(photos).findIndex(x => x.key === key))
 
 }
 

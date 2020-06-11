@@ -58,7 +58,6 @@
     {/each}
     <li/>
 </ul>
-<p>test</p>
 
 <style>
     img {
@@ -74,6 +73,7 @@
         display: flex;
         flex-wrap: wrap;
         list-style: none;
+        padding:0;
     }
 
     li {
