@@ -83,7 +83,7 @@ export function pannable(node) {
     }
 
     function recenter() {
-        console.log("RECENTERING")
+        // console.log("RECENTERING")
         let w = node.clientWidth * scale;
         let h = node.clientHeight * scale;
         let wdiff = w - window.innerWidth;
@@ -172,7 +172,7 @@ export function pannable(node) {
                 }));
             }
             else {
-                console.log("else")
+                // console.log("else")
                 touchData.t = [];
                 touchData.pinchDist = 0;
             }
@@ -186,7 +186,7 @@ export function pannable(node) {
 
         touchData.pinchDist = 0;
         touchData.lastE = null;
-        console.log("touch ended")
+        // console.log("touch ended")
 
         if (scale < 1.02) resetScale();
         recenter();

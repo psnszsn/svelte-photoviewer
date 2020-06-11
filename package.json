@@ -1,5 +1,6 @@
 {
     "name": "SvelteComponent",
+    "version": "0.1.0",
     "svelte": "src/index.js",
     "module": "dist/index.mjs",
     "main": "dist/index.js",
@@ -15,7 +16,10 @@
         "svelte": "^3.0.0"
     },
     "keywords": [
-        "svelte"
+        "svelte",
+        "photo",
+        "viewer",
+        "gallery"
     ],
     "files": [
         "src",

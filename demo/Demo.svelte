@@ -59,7 +59,6 @@
     <li/>
 </ul>
 <p>test</p>
-tyle
 
 <style>
     img {
@@ -81,12 +80,12 @@ tyle
         flex-grow: 1;
         /* flex-basis: 0; */
         position: relative;
-        height: 300px;
+        height: 200px;
         display: flex;
         padding: 2px;
     }
 
     li:last-child {
-        /* flex-grow: 10; */
+        flex-grow: 10;
     }
 </style>

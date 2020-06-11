@@ -15,13 +15,13 @@ export default [{
     ],
     plugins: [
         svelte({
-            customElement: true,
+            customElement: false,
         }),
         resolve()
     ]
 },
 {
-    input: 'demo/index.js',
+    input: 'demo/Demo.svelte',
     output:
     {
         dir: 'demo/dist',

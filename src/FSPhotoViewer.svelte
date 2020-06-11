@@ -57,8 +57,14 @@
         img.onload = () => {
             clearTimeout(timeout);
             currentPhotoStatus.set({ loading: false, loaded: true });
-            console.log("done loading");
+            /* console.log("done loading"); */
         };
+
+        img.onerror = () => {
+            clearTimeout(timeout);
+            currentPhotoStatus.set({ loading: false, loaded: false });
+            console.log("IMAGE ERROR")
+        }
 
         img.src = p.src;
 
@@ -67,7 +73,7 @@
     };
 
     currentPhoto.subscribe(p => {
-        console.log("current: ", p);
+        /* console.log("current: ", p); */
         loadPhoto(p);
     });
 
@@ -86,7 +92,7 @@
 
     function changePhoto(n) {
         if ($imageScale > 1) return;
-        console.log($_currentIndex);
+        // console.log($_currentIndex);
         if (n > 0) {
             _currentIndex.next();
         } else {
@@ -122,7 +128,7 @@
     }
 
     function closeModal() {
-        console.log("cclosing");
+        //console.log("cclosing");
         /* dispatch("ccclose"); */
         coords.set({ x: 0, y: 0 });
         imageScale.set(1);
@@ -131,10 +137,9 @@
         _currentIndex.set(-1);
     }
 
-    $: console.log("loaded ", $currentPhotoStatus.loaded);
+    /* $: console.log("loaded ", $currentPhotoStatus.loaded); */
 </script>
 
-<svelte:options tag="fs-photo-viewer" />
 <svelte:window on:keydown={handleKeydown} />
 
 {#if $currentPhotoStatus.loaded}

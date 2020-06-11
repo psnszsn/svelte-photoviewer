@@ -1165,7 +1165,7 @@ function pannable(node) {
     }
 
     function recenter() {
-        console.log("RECENTERING");
+        // console.log("RECENTERING")
         let w = node.clientWidth * scale;
         let h = node.clientHeight * scale;
         let wdiff = w - window.innerWidth;
@@ -1254,7 +1254,7 @@ function pannable(node) {
                 }));
             }
             else {
-                console.log("else");
+                // console.log("else")
                 touchData.t = [];
                 touchData.pinchDist = 0;
             }
@@ -1268,7 +1268,7 @@ function pannable(node) {
 
         touchData.pinchDist = 0;
         touchData.lastE = null;
-        console.log("touch ended");
+        // console.log("touch ended")
 
         if (scale < 1.02) resetScale();
         recenter();
@@ -1328,7 +1328,7 @@ function add_css() {
 	append(document.head, style);
 }
 
-// (140:0) {#if $currentPhotoStatus.loaded}
+// (145:0) {#if $currentPhotoStatus.loaded}
 function create_if_block(ctx) {
 	let await_block_anchor;
 	let promise;
@@ -1341,7 +1341,7 @@ function create_if_block(ctx) {
 		pending: create_pending_block,
 		then: create_then_block,
 		catch: create_catch_block,
-		value: 21,
+		value: 20,
 		blocks: [,,,]
 	};
 
@@ -1365,7 +1365,7 @@ function create_if_block(ctx) {
 
 			if (dirty & /*$currentPhoto*/ 4 && promise !== (promise = /*$currentPhoto*/ ctx[2]) && handle_promise(promise, info)) ; else {
 				const child_ctx = ctx.slice();
-				child_ctx[21] = info.resolved;
+				child_ctx[20] = info.resolved;
 				info.block.p(child_ctx, dirty);
 			}
 		},
@@ -1403,7 +1403,7 @@ function create_catch_block(ctx) {
 	};
 }
 
-// (141:33)           <section>             <!-- <h1 class="title">{photo.uuid}
+// (146:33)           <section>             <!-- <h1 class="title">{photo.uuid}
 function create_then_block(ctx) {
 	let section;
 	let div0;
@@ -1430,7 +1430,7 @@ function create_then_block(ctx) {
 			attr(div0, "class", "modal-background svelte-1m22xjp");
 			attr(img, "draggable", "false");
 			attr(img, "alt", "Photo");
-			if (img.src !== (img_src_value = /*d*/ ctx[21].src)) attr(img, "src", img_src_value);
+			if (img.src !== (img_src_value = /*d*/ ctx[20].src)) attr(img, "src", img_src_value);
 			attr(img, "class", "svelte-1m22xjp");
 			set_style(div1, "transform", "scale(" + /*$imageScale*/ ctx[0] + ") translate(" + /*$coords*/ ctx[3].x + "px," + /*$coords*/ ctx[3].y + "px)");
 			attr(div1, "class", "slider");
@@ -1449,14 +1449,14 @@ function create_then_block(ctx) {
 
 			dispose = [
 				listen(div0, "click", /*closeModal*/ ctx[9]),
-				listen(img, "mousedown", prevent_default(/*mousedown_handler*/ ctx[20])),
+				listen(img, "mousedown", prevent_default(/*mousedown_handler*/ ctx[19])),
 				action_destroyer(pannable_action = pannable.call(null, div1)),
 				listen(div1, "panmove", /*handlePanMove*/ ctx[7]),
 				listen(div1, "zoomchanged", /*handleZoom*/ ctx[8])
 			];
 		},
 		p(ctx, dirty) {
-			if (!current || dirty & /*$currentPhoto*/ 4 && img.src !== (img_src_value = /*d*/ ctx[21].src)) {
+			if (!current || dirty & /*$currentPhoto*/ 4 && img.src !== (img_src_value = /*d*/ ctx[20].src)) {
 				attr(img, "src", img_src_value);
 			}
 
@@ -1474,7 +1474,7 @@ function create_then_block(ctx) {
 
 			add_render_callback(() => {
 				if (img_outro) img_outro.end(1);
-				if (!img_intro) img_intro = create_in_transition(img, receive, { key: /*d*/ ctx[21].key });
+				if (!img_intro) img_intro = create_in_transition(img, receive, { key: /*d*/ ctx[20].key });
 				img_intro.start();
 			});
 
@@ -1484,7 +1484,7 @@ function create_then_block(ctx) {
 			if (!div0_transition) div0_transition = create_bidirectional_transition(div0, fade, { duration: 200 }, false);
 			div0_transition.run(0);
 			if (img_intro) img_intro.invalidate();
-			img_outro = create_out_transition(img, send, { key: /*d*/ ctx[21].key });
+			img_outro = create_out_transition(img, send, { key: /*d*/ ctx[20].key });
 			current = false;
 		},
 		d(detaching) {
@@ -1571,13 +1571,11 @@ function instance($$self, $$props, $$invalidate) {
 	let $prevPhoto;
 	let $nextPhoto;
 	let $imageScale;
-	let $_currentIndex;
 	let $currentPhotoStatus;
 	let $currentPhoto;
 	let $coords;
 	component_subscribe($$self, prevPhoto, $$value => $$invalidate(12, $prevPhoto = $$value));
 	component_subscribe($$self, nextPhoto, $$value => $$invalidate(13, $nextPhoto = $$value));
-	component_subscribe($$self, currentIndex, $$value => $$invalidate(14, $_currentIndex = $$value));
 	component_subscribe($$self, currentPhotoStatus, $$value => $$invalidate(1, $currentPhotoStatus = $$value));
 	component_subscribe($$self, currentPhoto, $$value => $$invalidate(2, $currentPhoto = $$value));
 
@@ -1621,7 +1619,12 @@ function instance($$self, $$props, $$invalidate) {
 		img.onload = () => {
 			clearTimeout(timeout);
 			currentPhotoStatus.set({ loading: false, loaded: true });
-			console.log("done loading");
+		}; /* console.log("done loading"); */
+
+		img.onerror = () => {
+			clearTimeout(timeout);
+			currentPhotoStatus.set({ loading: false, loaded: false });
+			console.log("IMAGE ERROR");
 		};
 
 		img.src = p.src;
@@ -1630,7 +1633,7 @@ function instance($$self, $$props, $$invalidate) {
 	};
 
 	currentPhoto.subscribe(p => {
-		console.log("current: ", p);
+		/* console.log("current: ", p); */
 		loadPhoto(p);
 	});
 
@@ -1649,8 +1652,8 @@ function instance($$self, $$props, $$invalidate) {
 
 	function changePhoto(n) {
 		if ($imageScale > 1) return;
-		console.log($_currentIndex);
 
+		// console.log($_currentIndex);
 		if (n > 0) {
 			currentIndex.next();
 		} else {
@@ -1678,8 +1681,7 @@ function instance($$self, $$props, $$invalidate) {
 	}
 
 	function closeModal() {
-		console.log("cclosing");
-
+		//console.log("cclosing");
 		/* dispatch("ccclose"); */
 		coords.set({ x: 0, y: 0 });
 
@@ -1697,12 +1699,6 @@ function instance($$self, $$props, $$invalidate) {
 		if ("currentIndex" in $$props) $$invalidate(11, currentIndex$1 = $$props.currentIndex);
 	};
 
-	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*$currentPhotoStatus*/ 2) {
-			 console.log("loaded ", $currentPhotoStatus.loaded);
-		}
-	};
-
 	return [
 		$imageScale,
 		$currentPhotoStatus,
@@ -1718,7 +1714,6 @@ function instance($$self, $$props, $$invalidate) {
 		currentIndex$1,
 		$prevPhoto,
 		$nextPhoto,
-		$_currentIndex,
 		loadPhoto,
 		component,
 		svelteDispatch,
@@ -2021,8 +2016,8 @@ class Thumbnail extends SvelteComponent {
 
 function add_css$2() {
 	var style = element("style");
-	style.id = "svelte-tcqbqu-style";
-	style.textContent = "img.svelte-tcqbqu{max-height:100%;min-width:100%;display:block;object-fit:cover}ul.svelte-tcqbqu{display:flex;flex-wrap:wrap;list-style:none}li.svelte-tcqbqu{flex-grow:1;position:relative;height:300px;display:flex;padding:2px}";
+	style.id = "svelte-hwbf39-style";
+	style.textContent = "img.svelte-hwbf39{max-height:100%;min-width:100%;display:block;object-fit:cover}ul.svelte-hwbf39{display:flex;flex-wrap:wrap;list-style:none}li.svelte-hwbf39{flex-grow:1;position:relative;height:200px;display:flex;padding:2px}li.svelte-hwbf39:last-child{flex-grow:10}";
 	append(document.head, style);
 }
 
@@ -2043,7 +2038,7 @@ function create_default_slot(ctx) {
 			img = element("img");
 			if (img.src !== (img_src_value = /*p*/ ctx[2].thumbnail)) attr(img, "src", img_src_value);
 			attr(img, "alt", img_alt_value = /*p*/ ctx[2].key);
-			attr(img, "class", "svelte-tcqbqu");
+			attr(img, "class", "svelte-hwbf39");
 		},
 		m(target, anchor) {
 			insert(target, img, anchor);
@@ -2072,7 +2067,7 @@ function create_each_block(ctx) {
 		c() {
 			li = element("li");
 			create_component(thumbnail.$$.fragment);
-			attr(li, "class", "svelte-tcqbqu");
+			attr(li, "class", "svelte-hwbf39");
 		},
 		m(target, anchor) {
 			insert(target, li, anchor);
@@ -2111,7 +2106,6 @@ function create_fragment$2(ctx) {
 	let li;
 	let t2;
 	let p;
-	let t4;
 	let current;
 	const fsphotoviewer = new FSPhotoViewer({ props: { photos: /*photos*/ ctx[0] } });
 	let each_value = /*photos*/ ctx[0];
@@ -2140,9 +2134,8 @@ function create_fragment$2(ctx) {
 			t2 = space();
 			p = element("p");
 			p.textContent = "test";
-			t4 = text("\ntyle");
-			attr(li, "class", "svelte-tcqbqu");
-			attr(ul, "class", "svelte-tcqbqu");
+			attr(li, "class", "svelte-hwbf39");
+			attr(ul, "class", "svelte-hwbf39");
 		},
 		m(target, anchor) {
 			mount_component(fsphotoviewer, target, anchor);
@@ -2157,7 +2150,6 @@ function create_fragment$2(ctx) {
 			append(ul, li);
 			insert(target, t2, anchor);
 			insert(target, p, anchor);
-			insert(target, t4, anchor);
 			current = true;
 		},
 		p(ctx, [dirty]) {
@@ -2215,7 +2207,6 @@ function create_fragment$2(ctx) {
 			destroy_each(each_blocks, detaching);
 			if (detaching) detach(t2);
 			if (detaching) detach(p);
-			if (detaching) detach(t4);
 		}
 	};
 }
@@ -2243,14 +2234,10 @@ function instance$2($$self) {
 class Demo extends SvelteComponent {
 	constructor(options) {
 		super();
-		if (!document.getElementById("svelte-tcqbqu-style")) add_css$2();
+		if (!document.getElementById("svelte-hwbf39-style")) add_css$2();
 		init(this, options, instance$2, create_fragment$2, safe_not_equal, {});
 	}
 }
 
-const app = new Demo({
-    target: document.body,
-});
-
-export default app;
-//# sourceMappingURL=index.js.map
+export default Demo;
+//# sourceMappingURL=Demo.js.map
